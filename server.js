@@ -10,7 +10,7 @@ app.use(cors());
 
 // Serve the HTML file
 app.get('/', (req, res) => {
-  const filePath = path.join(__dirname, 'Example.html');
+  const filePath = path.join(__dirname, 'index.html');
   
   // Read the file asynchronously
   fs.readFile(filePath, 'utf8', (err, data) => {
