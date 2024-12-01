@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Web Page</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      .header {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        height: 200px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .nav {
+        background-color: #ddd;
+        padding: 10px;
+        text-align: center;
+        height: 100px;
+      }
+      .nav-button {
+        background-color: #ddd;
+        border: none;
+        color: #333;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px; /* 圆角边框 */
+      }
+      .nav-button:hover {
+        background-color: #ccc;
+      }
+      .nav a {
+        color: #333;
+        text-decoration: none;
+        margin-right: 10px;
+      }
+      .container {
+        display: flex;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+      }
+      .sidebar,
+      .main {
+        padding: 20px;
+        height: 550px;
+        overflow: hidden;
+      }
+      .sidebar {
+        background-color: #f0f0f0;
+        flex: 0 0 400px; /* Fixed width for sidebar */
+      }
+      .main {
+        background-color: #e0e0e0;
+        flex: 0 0 900px; /* Fixed width for main content */
+      }
+      .sidebar-left {
+        margin-right: 20px; /* Adjust the margin for the left sidebar */
+      }
+      .sidebar-right {
+        margin-left: 20px; /* Adjust the margin for the right sidebar */
+      }
+      .footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Ear Display Web Page</h1>
+    </div>
+
+    <div class="container">
+      <div class="sidebar sidebar-left">
+        <iframe
+          id="webgl"
+          style="
+            position: relative;
+            width: 400px;
+            height: 510px;
+            border: medium none;
+          "
+          src="https://justicexiu.github.io/ear.github.io/"
+        ></iframe>
+      </div>
+      <div class="main">
+        <button id="enlargeButton">显示或隐藏线</button>
+        <div>
+            <input type="text" id="myInput"></input>
+            <button id="infoButton">设置信息</button>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Footer - Copyright &copy; 2024</p>
+    </div>
+  </body>
+
+  <script>
+    // JS 代码
+    // 获取DOM中id为"webgl"的iframe元素
+    var unWebGL = document.getElementById("webgl");
+    // 获取放大按钮
+    var enlargeButton = document.getElementById("enlargeButton");
+    // 获取缩小按钮
+    var shrinkButton = document.getElementById("shrinkButton");
+    // 获取信息按钮
+    var infoButton = document.getElementById("infoButton");
+    var myInput = document.getElementById('myInput');
+
+    /**
+     * Action函数用于向iframe内的WebGL应用发送指令。
+     * @param {string} methodName - 要调用的方法名
+     * @param {string} message - 要传递的消息（可选）
+     */
+    //function Action(methodName, message) {
+      // 获取嵌套的iframe元素
+      //var iframeB = document.getElementById("webgl");
+      // 调用iframe内容窗口的ReceiveJSMethod方法，传递方法名和消息
+      //iframeB.contentWindow.ReceiveJSMethod(methodName, message);
+    //}
+
+    function Action(methodName, message) {
+        // 获取嵌套的iframe元素
+        var iframeB = document.getElementById("webgl");
+        if (!iframeB) {
+            console.error("无法找到 iframe 元素");
+            return;
+        }
+
+        // 创建消息对象
+        var messageObj = { methodName: methodName, message: message };
+        console.log("发送消息：", messageObj);
+
+        // 向iframe发送消息，使用postMessage
+        iframeB.contentWindow.postMessage(messageObj, "*");
+    }
+
+    // 为信息按钮添加点击事件监听器
+    infoButton.addEventListener("click", function () {
+      // 当按钮被点击时，调用Action函数，通知WebGL应用显示信息
+      Action("SetTextInfo", myInput.value);
+    });
+
+    // 为放大按钮添加点击事件监听器
+    enlargeButton.addEventListener("click", function () {
+      // 当按钮被点击时，调用Action函数，通知WebGL应用增大缩放
+      Action("ChangeDisplay");
+      // 可以在这里执行其他操作
+    });
+
+    // 为缩小按钮添加点击事件监听器
+    shrinkButton.addEventListener("click", function () {
+      // 当按钮被点击时，调用Action函数，通知WebGL应用减小缩放
+      Action("SubtractScale");
+    });
+
+  </script>
+</html>
