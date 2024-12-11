@@ -160,7 +160,7 @@
 
         // 监听Unity传来的消息
         window.addEventListener("message", function (event) {
-            if (event.origin !== "https://justicexiu.github.io/ear.github.io/") {
+            if (event.origin !== "https://justicexiu.github.io/") {
                 console.error("消息来自不可信的源: ", event.origin);
                 return;
             }
