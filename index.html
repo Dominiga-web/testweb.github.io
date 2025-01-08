@@ -99,7 +99,7 @@
             height: 510px;
             border: medium none;
           "
-          src="https://justicexiu.github.io/ear.github.io/"
+          src="http://localhost:7749/"
         ></iframe>
       </div>
       <div class="main">
@@ -107,6 +107,10 @@
         <div>
             <input type="text" id="myInput"></input>
             <button id="infoButton">设置信息</button>
+
+            <input type="text" id="idInput"></input>
+            <input type="text" id="nameInput"></input>
+            <button id="configButton">设置ID与名称</button>
         </div>
         <!-- 这是用来显示字符串的HTML元素 -->
         <div id="output" style="display:flex;justify-content: center; align-items: center; font-size: 25px; margin-top: 25%"></div>
@@ -130,6 +134,10 @@
         // 获取信息按钮
         var infoButton = document.getElementById("infoButton");
         var myInput = document.getElementById('myInput');
+
+        var configButton = document.getElementById("configButton");
+        var nameInput = document.getElementById('nameInput');
+        var idInput = document.getElementById('idInput');
 
         // 获取显示内容的元素
         var outputElement = document.getElementById("output");
@@ -160,7 +168,7 @@
 
         // 监听Unity传来的消息
         window.addEventListener("message", function (event) {
-            if (event.origin !== "https://justicexiu.github.io") {
+            if (event.origin !== "http://localhost:7749") {
                 console.error("消息来自不可信的源: ", event.origin);
                 return;
             }
@@ -174,6 +182,12 @@
         infoButton.addEventListener("click", function () {
           // 当按钮被点击时，调用Action函数，通知WebGL应用显示信息
           Action("SetTextInfo", myInput.value);
+        });
+
+        configButton.addEventListener("click", function () {
+          // 当按钮被点击时，调用Action函数，通知WebGL应用显示信息
+          Action("SetCurrentEarName", nameInput.value);
+          Action("SetCurrentEarId", idInput.value);
         });
 
         // 为放大按钮添加点击事件监听器
