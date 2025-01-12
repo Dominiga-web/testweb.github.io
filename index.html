@@ -106,8 +106,12 @@
         <button id="enlargeButton">显示或隐藏线</button>
         <div>
             <input type="text" id="myInput"></input>
-            <button id="infoButton">设置信息</button>
+            <button id="infoButton">名称查找</button>
 
+            <input type="text" id="myInputID"></input>
+            <button id="infoIDButton">ID查找</button>
+        </div>
+        <div>
             <input type="text" id="idInput"></input>
             <input type="text" id="nameInput"></input>
             <button id="configButton">设置ID与名称</button>
@@ -134,6 +138,8 @@
         // 获取信息按钮
         var infoButton = document.getElementById("infoButton");
         var myInput = document.getElementById('myInput');
+        var infoIDButton = document.getElementById("infoIDButton");
+        var myInputID = document.getElementById('myInputID');
 
         var configButton = document.getElementById("configButton");
         var nameInput = document.getElementById('nameInput');
@@ -182,6 +188,12 @@
         infoButton.addEventListener("click", function () {
           // 当按钮被点击时，调用Action函数，通知WebGL应用显示信息
           Action("SetTextInfo", myInput.value);
+        });
+
+        // 为信息按钮添加点击事件监听器
+        infoIDButton.addEventListener("click", function () {
+          // 当按钮被点击时，调用Action函数，通知WebGL应用显示信息
+          Action("SetTextEarID", myInputID.value);
         });
 
         configButton.addEventListener("click", function () {
